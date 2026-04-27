@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Animado</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .central-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            z-index: 10;
+            text-align: center;
+            border-top: 4px solid #fff;
+            border-bottom: 4px solid #fff;
+            padding: 15px 30px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+        .square {
+            position: absolute;
+            bottom: -150px;
+            background: #fff; /* Branco sólido no início */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            animation: moveAndFade linear infinite;
+        }
+
+        /* Animação atualizada: começa sólido e fica transparente */
+        @keyframes moveAndFade {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1; /* Totalmente visível (branco sólido) */
+            }
+            100% {
+                transform: translateY(-125vh) rotate(360deg);
+                opacity: 0; /* Totalmente transparente ao final */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper" id="bg-container">
+        <h1 class="central-text">background animation</h1>
+    </div>
+
+    <script>
+        function createSquare() {
+            const container = document.getElementById('bg-container');
+            const square = document.createElement('div');
+            
+            const sizeValue = Math.random() * 50 + 50;
+            const size = sizeValue + 'px';
+            
+            square.classList.add('square');
+            square.style.width = size;
+            square.style.height = size;
+            
+            square.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 5 + 7;
+            square.style.animationDuration = duration + 's';
+            
+            container.appendChild(square);
+
+            setTimeout(() => {
+                square.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createSquare, 800);
+    </script>
+</body>
+</html>
